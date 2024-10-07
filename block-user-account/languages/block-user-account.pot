@@ -1,0 +1,100 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Block User Account\n"
+"POT-Creation-Date: 2021-04-26 19:45+0430\n"
+"PO-Revision-Date: 2017-07-22 17:28+0430\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: block-user-account.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: block-user-account.php:37
+msgid "User Account Status"
+msgstr ""
+
+#: block-user-account.php:43
+msgid "Enabled"
+msgstr ""
+
+#: block-user-account.php:44
+msgid "Disabled"
+msgstr ""
+
+#: block-user-account.php:46
+msgid "Green: Account is Active. / Red: Account is Blocked."
+msgstr ""
+
+#: block-user-account.php:52
+msgid "Why the user is blocked Message"
+msgstr ""
+
+#: block-user-account.php:113
+msgid "Block Users"
+msgstr ""
+
+#: block-user-account.php:114
+msgid "Active Users"
+msgstr ""
+
+#: block-user-account.php:140
+#, php-format
+msgid "%d Users were Blocked."
+msgstr ""
+
+#: block-user-account.php:144
+#, php-format
+msgid "%d Users Activated."
+msgstr ""
+
+#: block-user-account.php:152
+msgid "User Status"
+msgstr ""
+
+#: block-user-account.php:153
+msgid "Blocked Reason"
+msgstr ""
+
+#: block-user-account.php:161
+msgid "Active"
+msgstr ""
+
+#: block-user-account.php:162
+msgid "Blocked"
+msgstr ""
+
+#: block-user-account.php:196
+msgid "Your account is disabled."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Block User Account"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://zooroofchi.ir/block-user-account-wordpress-plugin"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Block Users Accounts On your Site."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Mahmoud Zooroofchi"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://zooroofchi.ir"
+msgstr ""
