@@ -3,9 +3,9 @@ Contributors: dangoweb
 Donate link: https://zarinp.al/dangoweb.ir
 Tags: block user, disable account, block account
 Requires at least: 6.0
-Tested up to: 6.5
-Stable tag: 5.9
-Requires PHP: 7.2
+Tested up to: 6.7
+Stable tag: 1.3.1
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
