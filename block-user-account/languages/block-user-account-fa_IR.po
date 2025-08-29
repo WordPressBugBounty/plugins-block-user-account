@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Block User Account\n"
-"POT-Creation-Date: 2022-03-09 20:39+0330\n"
-"PO-Revision-Date: 2022-03-09 20:39+0330\n"
+"POT-Creation-Date: 2025-08-29 02:30+0330\n"
+"PO-Revision-Date: 2025-08-29 02:30+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -10,98 +10,102 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.7\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: block-user-account.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: block-user-account.php:37
+#: block-user-account.php:35
 msgid "User Account Status"
 msgstr "وضعیت حساب کاربر"
 
 #: block-user-account.php:43
-msgid "Enabled"
-msgstr "فعال"
-
-#: block-user-account.php:44
-msgid "Disabled"
-msgstr "غیرفعال"
-
-#: block-user-account.php:46
 msgid "Green: Account is Active. / Red: Account is Blocked."
 msgstr "سبز: حساب فعال است. / قرمز: حساب مسدود است."
 
-#: block-user-account.php:52
+#: block-user-account.php:49
 msgid "Why the user is blocked Message"
 msgstr "پیام چرا کاربر مسدود شده است"
 
-#: block-user-account.php:113
+#: block-user-account.php:93
 msgid "Block Users"
 msgstr "مسدودسازی کاربر"
 
-#: block-user-account.php:114
+#: block-user-account.php:94
 msgid "Active Users"
 msgstr "فعال کردن کاربر"
 
-#: block-user-account.php:131 block-user-account.php:143
-msgid "Sorry, you are not allowed to edit this user."
-msgstr "متاسفیم، شما مجاز به ویرایش این کاربر نیستید."
-
-#: block-user-account.php:156
-#, php-format
-msgid "%d Users were Blocked."
-msgstr "%d کاربر مسدود شدند."
-
-#: block-user-account.php:160
-#, php-format
-msgid "%d Users Activated."
-msgstr "%d کاربر فعال شدند."
-
-#: block-user-account.php:168
+#: block-user-account.php:128
 msgid "User Status"
 msgstr "وضعیت کاربر"
 
-#: block-user-account.php:169
+#: block-user-account.php:129
 msgid "Blocked Reason"
 msgstr "دلیل مسدودی"
 
-#: block-user-account.php:177
+#: block-user-account.php:136
 msgid "Active"
 msgstr "فعال"
 
-#: block-user-account.php:178
+#: block-user-account.php:137
 msgid "Blocked"
 msgstr "مسدود"
 
-#: block-user-account.php:212
-msgid "Your account is disabled."
-msgstr "حساب کاربری شما غیرفعال شده است."
+#: block-user-account.php:169
+msgid ""
+"Your account has been temporarily disabled. Please contact the administrator."
+msgstr "حساب کاربری شما مسدود شده است. لطفا با مدیریت ارتباط برقرار کنید."
 
 #. Plugin Name of the plugin/theme
 msgid "Block User Account"
 msgstr "مسدودساز حساب کاربری"
 
 #. Plugin URI of the plugin/theme
-msgid "https://zoroufchi.ir/block-user-account-wordpress-plugin"
-msgstr "https://zoroufchi.ir/block-user-account-wordpress-plugin"
+msgid "https://dangoweb.ir/product/buacc-wordpress-user-block-plugin/"
+msgstr "https://dangoweb.ir/product/buacc-wordpress-user-block-plugin/"
 
 #. Description of the plugin/theme
 msgid "Block Users Accounts On your Site."
 msgstr "مسدود کردن حسابهای کاربری در سایت شما."
 
 #. Author of the plugin/theme
-msgid "Mahmoud Zoroufchi"
-msgstr "محمود ظروفچی"
+msgid "DangoWeb"
+msgstr "دانگو وب"
 
 #. Author URI of the plugin/theme
-msgid "https://zoroufchi.ir"
-msgstr "https://zoroufchi.ir"
+msgid "https://dangoweb.ir"
+msgstr "https://dangoweb.ir"
+
+#~ msgid "Enabled"
+#~ msgstr "فعال"
+
+#~ msgid "Disabled"
+#~ msgstr "غیرفعال"
+
+#~ msgid "Sorry, you are not allowed to edit this user."
+#~ msgstr "متاسفیم، شما مجاز به ویرایش این کاربر نیستید."
+
+#, php-format
+#~ msgid "%d Users were Blocked."
+#~ msgstr "%d کاربر مسدود شدند."
+
+#, php-format
+#~ msgid "%d Users Activated."
+#~ msgstr "%d کاربر فعال شدند."
+
+#~ msgid "Your account is disabled."
+#~ msgstr "حساب کاربری شما غیرفعال شده است."
+
+#~ msgid "Mahmoud Zoroufchi"
+#~ msgstr "محمود ظروفچی"
+
+#~ msgid "https://zoroufchi.ir"
+#~ msgstr "https://zoroufchi.ir"
 
 #~ msgid ""
 #~ "This plugin blocks user accounts and prevents users from accessing the "
@@ -113,6 +117,3 @@ msgstr "https://zoroufchi.ir"
 #~| msgid "Block User Account"
 #~ msgid "This Plugin can Block the User Account."
 #~ msgstr "مسدودساز حساب کاربری"
-
-#~ msgid "https://dangoweb.ir/"
-#~ msgstr "https://dangoweb.ir/"
