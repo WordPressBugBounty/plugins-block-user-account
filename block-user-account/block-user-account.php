@@ -1,184 +1,375 @@
 <?php
-/*
+
+/**
  * Plugin Name: Block User Account
  * Plugin URI: https://dangoweb.ir/product/buacc-wordpress-user-block-plugin/
- * Description: Block Users Accounts On your Site.
- * Version: 1.4
+ * Description: Advanced user account management - Block users temporarily or permanently with custom messages, email notifications, activity logs and bulk actions
+ * Version: 2.0.0
  * Author: DangoWeb
  * Author URI: https://dangoweb.ir
- * Text Domain : block-user-account
+ * Text Domain: block-user-account
  * Domain Path: /languages
+ * Requires at least: 5.0
+ * Requires PHP: 7.2
+ * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
-add_action('plugins_loaded', 'bua_translation');
 
-function bua_translation()
+defined('ABSPATH') || exit;
+
+/**
+ * Define plugin constants
+ */
+define('BUA_VERSION', '2.0.0');
+define('BUA_PLUGIN_FILE', __FILE__);
+define('BUA_PLUGIN_DIR', plugin_dir_path(__FILE__));
+define('BUA_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('BUA_ASSETS_URL', BUA_PLUGIN_URL . 'assets/');
+define('BUA_CSS_URL', BUA_ASSETS_URL . 'css');
+define('BUA_JS_URL', BUA_ASSETS_URL . 'js');
+define('BUA_LANG_DIR', dirname(plugin_basename(__FILE__)) . '/languages/');
+
+/**
+ * Load required files
+ */
+require_once BUA_PLUGIN_DIR . 'includes/class-logger.php';
+require_once BUA_PLUGIN_DIR . 'includes/class-email-notifications.php';
+require_once BUA_PLUGIN_DIR . 'includes/class-cron-jobs.php';
+require_once BUA_PLUGIN_DIR . 'includes/class-authentication.php';
+require_once BUA_PLUGIN_DIR . 'includes/class-block-manager.php';
+require_once BUA_PLUGIN_DIR . 'admin/class-user-profile.php';
+require_once BUA_PLUGIN_DIR . 'admin/class-user-list.php';
+require_once BUA_PLUGIN_DIR . 'admin/class-bulk-actions.php';
+require_once BUA_PLUGIN_DIR . 'admin/class-admin-menu.php';
+
+/**
+ * Main plugin class
+ */
+final class Block_User_Account
 {
-    load_plugin_textdomain('block-user-account', false, BUA_LANG_DIR);
-}
 
-defined('ABSPATH') || exit();
-define('BUA_CSS_URL', plugins_url('css', __FILE__));
-define('BUA_LANG_DIR', basename(dirname(__FILE__)) . '/languages/');
+    /**
+     * Single instance
+     *
+     * @var Block_User_Account
+     */
+    private static $instance = null;
 
-//Show User Status Checkbox
-add_action('show_user_profile', 'bua_block_checkbox');
-add_action('edit_user_profile', 'bua_block_checkbox');
-function bua_block_checkbox($user)
-{
-    $user_id = $user->ID;
-    $current_user_id = get_current_user_id();
-    if ($user_id != $current_user_id):
-        if (current_user_can('edit_users')): ?>
-            <table class="form-table" id="block_user">
-                <tr>
-                    <th>
-                        <label for="user_status"><?php _e("User Account Status", 'block-user-account'); ?></label>
-                    </th>
-                    <td>
-                        <label class="bua-toggle-switch">
-                            <input type="checkbox" class="toggle-input" name="user_status" value="deactive"
-                                   id="user_status" <?php checked(get_user_meta($user_id, 'user_status', true), 'deactive'); ?>>
-                            <span class="bua-toggle-slider"></span>
-                        </label>
-                        <p class="description"><?php _e("Green: Account is Active. / Red: Account is Blocked.", 'block-user-account'); ?></p>
-                    </td>
-                </tr>
+    /**
+     * Plugin components
+     *
+     * @var array
+     */
+    private $components = array();
 
-                <tr>
-                    <th>
-                        <label for="user_status_message"><?php _e("Why the user is blocked Message", 'block-user-account'); ?></label>
-                    </th>
-                    <td>
-                        <label class="tgl">
-                            <input type="text" name="user_status_message" id="user_status_message" class="regular-text"
-                                   value="<?php echo get_user_meta($user_id, 'user_status_message', true) ?>">
-                        </label>
-                    </td>
-                </tr>
-            </table>
-        <?php
-        endif;
-    endif;
+    /**
+     * Get instance
+     *
+     * @return Block_User_Account
+     */
+    public static function instance()
+    {
+        if (is_null(self::$instance)) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
 
-    return;
-}
+    /**
+     * Constructor
+     */
+    private function __construct()
+    {
+        $this->define_hooks();
+    }
 
-//Save User Status
-add_action('personal_options_update', 'bua_save_user_status');
-add_action('edit_user_profile_update', 'bua_save_user_status');
-function bua_save_user_status($user_id)
-{
-    if (current_user_can('edit_users')) :
-        if (filter_input(INPUT_POST, 'user_status') == 'deactive'):
-            update_user_meta($user_id, 'user_status', $_POST['user_status']);
-        else:
+    /**
+     * Define hooks
+     */
+    private function define_hooks()
+    {
+        add_action('init', array($this, 'load_textdomain'));
+        add_action('plugins_loaded', array($this, 'init_components'));
+
+        register_activation_hook(__FILE__, array($this, 'activate'));
+        register_deactivation_hook(__FILE__, array($this, 'deactivate'));
+        register_uninstall_hook(__FILE__, array('Block_User_Account', 'uninstall'));
+
+        add_action('wp_dashboard_setup', array($this, 'add_dashboard_widgets'));
+        add_action('admin_bar_menu', array($this, 'add_admin_bar_menu'), 100);
+
+        add_filter('plugin_action_links_' . plugin_basename(__FILE__), array($this, 'add_plugin_action_links'));
+        add_filter('plugin_row_meta', array($this, 'add_plugin_row_meta'), 10, 2);
+    }
+
+    /**
+     * Load plugin textdomain
+     */
+    public function load_textdomain()
+    {
+        $locale = determine_locale();
+        $locale = apply_filters('plugin_locale', $locale, 'block-user-account');
+
+        unload_textdomain('block-user-account');
+
+        $loaded = load_textdomain(
+            'block-user-account',
+            BUA_PLUGIN_DIR . 'languages/block-user-account-' . $locale . '.mo'
+        );
+
+        error_log('BUA Locale: ' . $locale);
+        error_log('BUA Loaded: ' . ($loaded ? 'true' : 'false'));
+        error_log('BUA Textdomain: ' . (is_textdomain_loaded('block-user-account') ? 'true' : 'false'));
+    }
+
+    /**
+     * Initialize plugin components
+     */
+    public function init_components()
+    {
+        $this->components['logger']              = new BUA_Logger();
+        $this->components['email_notifications']  = new BUA_Email_Notifications();
+        $this->components['cron_jobs']            = new BUA_Cron_Jobs();
+        $this->components['authentication']       = new BUA_Authentication();
+        $this->components['block_manager']        = new BUA_Block_Manager();
+        $this->components['user_profile']         = new BUA_User_Profile();
+        $this->components['user_list']            = new BUA_User_List();
+        $this->components['bulk_actions']         = new BUA_Bulk_Actions();
+
+        if (is_admin()) {
+            $this->components['admin_menu'] = new BUA_Admin_Menu();
+        }
+    }
+
+    /**
+     * Add dashboard widgets
+     */
+    public function add_dashboard_widgets()
+    {
+        BUA_User_Profile::add_dashboard_widget();
+    }
+
+    /**
+     * Add admin bar menu
+     *
+     * @param WP_Admin_Bar $wp_admin_bar Admin bar object
+     */
+    public function add_admin_bar_menu($wp_admin_bar)
+    {
+        if (!current_user_can('edit_users')) {
+            return;
+        }
+
+        $blocked_count = BUA_Logger::get_blocked_users_count();
+
+        $wp_admin_bar->add_node(array(
+            'id'     => 'bua-admin-bar',
+            'title'  => sprintf(
+                '<span class="ab-icon dashicons dashicons-shield" style="top:2px;"></span>' .
+                    '<span class="ab-label">%s</span>',
+                sprintf(__('Blocked (%d)', 'block-user-account'), $blocked_count)
+            ),
+            'href'   => admin_url('users.php?bua_filter=blocked'),
+            'parent' => null
+        ));
+
+        if ($blocked_count > 0) {
+            $wp_admin_bar->add_node(array(
+                'id'     => 'bua-view-blocked',
+                'title'  => __('View Blocked Users', 'block-user-account'),
+                'href'   => admin_url('users.php?bua_filter=blocked'),
+                'parent' => 'bua-admin-bar'
+            ));
+        }
+
+        $wp_admin_bar->add_node(array(
+            'id'     => 'bua-settings',
+            'title'  => __('Block Settings', 'block-user-account'),
+            'href'   => admin_url('options-general.php?page=block-user-account-settings'),
+            'parent' => 'bua-admin-bar'
+        ));
+    }
+
+    /**
+     * Add plugin action links
+     *
+     * @param array $links Existing links
+     * @return array Modified links
+     */
+    public function add_plugin_action_links($links)
+    {
+        $settings_link = sprintf(
+            '<a href="%s">%s</a>',
+            admin_url('options-general.php?page=block-user-account-settings'),
+            __('Settings', 'block-user-account')
+        );
+        array_unshift($links, $settings_link);
+        return $links;
+    }
+
+    /**
+     * Add plugin row meta
+     *
+     * @param array  $links Existing links
+     * @param string $file  Plugin file
+     * @return array Modified links
+     */
+    public function add_plugin_row_meta($links, $file)
+    {
+        if (plugin_basename(__FILE__) !== $file) {
+            return $links;
+        }
+
+        $links[] = sprintf(
+            '<a href="%s" target="_blank">%s</a>',
+            'https://dangoweb.ir/product/buacc-wordpress-user-block-plugin/',
+            __('Documentation', 'block-user-account')
+        );
+
+        $links[] = sprintf(
+            '<a href="%s" target="_blank">%s</a>',
+            'https://wordpress.org/support/plugin/block-user-account/reviews/#new-post',
+            __('Rate Us', 'block-user-account')
+        );
+
+        return $links;
+    }
+
+    /**
+     * Plugin activation
+     */
+    public function activate()
+    {
+        BUA_Logger::create_table();
+
+        add_option('bua_default_message', __('Your account has been temporarily disabled. Please contact the administrator.', 'block-user-account'));
+        add_option('bua_email_notifications', 'yes');
+        add_option('bua_admin_notifications', 'yes');
+        add_option('bua_log_activities', 'yes');
+        add_option('bua_daily_report', 'no');
+        add_option('bua_weekly_summary', 'no');
+        add_option('bua_log_retention_days', 90);
+        add_option('bua_auto_unblock', 'yes');
+        add_option('bua_db_version', BUA_VERSION);
+
+        set_transient('bua_activation_notice', true, 30);
+
+        flush_rewrite_rules();
+    }
+
+    /**
+     * Plugin deactivation
+     */
+    public function deactivate()
+    {
+        BUA_Cron_Jobs::clear_scheduled_events();
+        flush_rewrite_rules();
+    }
+
+    /**
+     * Plugin uninstall
+     */
+    public static function uninstall()
+    {
+        if (!current_user_can('activate_plugins')) {
+            return;
+        }
+
+        $users = get_users(array(
+            'meta_key'   => 'user_status',
+            'meta_value' => 'deactive',
+            'fields'     => 'ID'
+        ));
+
+        foreach ($users as $user_id) {
             delete_user_meta($user_id, 'user_status');
-        endif;
-        if (!empty(filter_input(INPUT_POST, 'user_status_message'))):
-            update_user_meta($user_id, 'user_status_message', sanitize_text_field($_POST['user_status_message']));
-        else:
             delete_user_meta($user_id, 'user_status_message');
-        endif;
-        $sessions = WP_Session_Tokens::get_instance($user_id);
-        $sessions->destroy_all();
-    endif;
-
-
-}
-
-//Bulk Actions
-add_filter('bulk_actions-users', 'bua_user_bulk_actions');
-function bua_user_bulk_actions($bulk_actions)
-{
-    $bulk_actions['bua_block_users'] = __('Block Users', 'block-user-account');
-    $bulk_actions['bua_active_users'] = __('Active Users', 'block-user-account');
-    return $bulk_actions;
-}
-
-add_filter('handle_bulk_actions-users', 'bua_user_bulk_actions_handle', 10, 3);
-function bua_user_bulk_actions_handle($redirect_to, $action, $user_ids)
-{
-    $current_user_id = get_current_user_id();
-
-    if (!current_user_can('edit_users')) {
-        return $redirect_to;
-    }
-
-    if ($action == 'bua_block_users') {
-        foreach ($user_ids as $user_id) {
-            if ($user_id != $current_user_id) {
-                update_user_meta($user_id, 'user_status', 'deactive');
-                $sessions = WP_Session_Tokens::get_instance($user_id);
-                $sessions->destroy_all();
-            }
+            delete_user_meta($user_id, 'block_expiry_date');
+            delete_user_meta($user_id, 'blocked_by');
+            delete_user_meta($user_id, 'blocked_date');
         }
-    } elseif ($action == 'bua_active_users') {
-        foreach ($user_ids as $user_id) {
-            delete_user_meta($user_id, 'user_status');
-        }
+
+        BUA_Logger::drop_table();
+
+        delete_option('bua_default_message');
+        delete_option('bua_email_notifications');
+        delete_option('bua_admin_notifications');
+        delete_option('bua_log_activities');
+        delete_option('bua_daily_report');
+        delete_option('bua_weekly_summary');
+        delete_option('bua_log_retention_days');
+        delete_option('bua_auto_unblock');
+        delete_option('bua_db_version');
     }
 
-    return $redirect_to;
+    /**
+     * Get component instance
+     *
+     * @param string $name Component name
+     * @return object|null Component instance
+     */
+    public function get_component($name)
+    {
+        return isset($this->components[$name]) ? $this->components[$name] : null;
+    }
+
+    /**
+     * Prevent cloning
+     */
+    private function __clone() {}
+
+    /**
+     * Prevent unserializing
+     */
+    public function __wakeup()
+    {
+        wp_die(__('Cannot unserialize singleton', 'block-user-account'));
+    }
 }
 
-//Show User Status Columns
-add_filter('manage_users_columns', 'bua_user_status_column');
-function bua_user_status_column($column)
+/**
+ * Initialize plugin
+ *
+ * @return Block_User_Account
+ */
+function BUA()
 {
-    $column['bua_user_status'] = __('User Status', 'block-user-account');
-    $column['bua_user_status_reasen'] = __('Blocked Reason', 'block-user-account');
-    return $column;
+    return Block_User_Account::instance();
 }
 
-add_action('manage_users_custom_column', 'bua_show_user_status', 10, 3);
-function bua_show_user_status($value, $column, $userid)
-{
-    $active = __('Active', 'block-user-account');
-    $blocked = __('Blocked', 'block-user-account');
-    $user_status = get_user_meta($userid, 'user_status', true);
-    $user_status_message = get_user_meta($userid, 'user_status_message', true);
-
-    if ('bua_user_status' == $column) {
-        if ($user_status === 'deactive') {
-            return '<span class="user-status-deactive"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"><path d="M480-80q-139-35-229.5-159.5T160-516v-244l320-120 320 120v244q0 152-90.5 276.5T480-80Zm0-84q104-33 172-132t68-220v-189l-240-90-240 90v189q0 121 68 220t172 132Zm0-316Zm-80 160h160q17 0 28.5-11.5T600-360v-120q0-17-11.5-28.5T560-520v-40q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560v40q-17 0-28.5 11.5T360-480v120q0 17 11.5 28.5T400-320Zm40-200v-40q0-17 11.5-28.5T480-600q17 0 28.5 11.5T520-560v40h-80Z"/></svg>' . $blocked . '</span>';
-        } else {
-            return '<span class="user-status-active"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"><path d="m438-338 226-226-57-57-169 169-84-84-57 57 141 141Zm42 258q-139-35-229.5-159.5T160-516v-244l320-120 320 120v244q0 152-90.5 276.5T480-80Zm0-84q104-33 172-132t68-220v-189l-240-90-240 90v189q0 121 68 220t172 132Zm0-316Z"/></svg>' . $active . '</span>';
-        }
-    }
-    if ('bua_user_status_reasen' == $column) {
-        if ($user_status == 'deactive') {
-            return "<div>" . $user_status_message . "</div>";
-        }
+/**
+ * Handle CSV export before any output
+ */
+add_action('admin_init', function () {
+    if (!isset($_GET['page']) || $_GET['page'] !== 'block-user-account-settings') {
+        return;
     }
 
-    return $value;
-}
-
-//Login Error
-add_filter('authenticate', 'bua_login_authenticate', 99, 2);
-function bua_login_authenticate($user, $username)
-{
-    $userinfo = get_user_by('login', $username);
-    if (!$userinfo && is_email($username)) {
-        $userinfo = get_user_by('email', $username);
-    }
-    if (!$userinfo) {
-        return $user;
-    } elseif (get_user_meta($userinfo->ID, 'user_status', true) === 'deactive') {
-        $user_message = get_user_meta($userinfo->ID, 'user_status_message', true);
-        $default_message = __('Your account has been temporarily disabled. Please contact the administrator.', 'block-user-account');
-        $message = !empty($user_message) ? $user_message : $default_message;
-        $error = new WP_Error();
-        $error->add('account_disabled', $message);
-
-        return $error;
+    if (!isset($_GET['bua_export']) || $_GET['bua_export'] !== '1') {
+        return;
     }
 
-    return $user;
-}
-
-add_action('admin_enqueue_scripts', function ($hook) {
-    if ($hook == 'user-edit.php' || $hook == 'profile.php' || $hook == 'users.php') {
-        wp_enqueue_style('bua_admin_style', BUA_CSS_URL . '/style.css');
+    if (!wp_verify_nonce($_GET['bua_export_nonce'], 'bua_export_logs')) {
+        return;
     }
+
+    if (!current_user_can('manage_options')) {
+        return;
+    }
+
+    $csv = BUA_Logger::export_logs();
+
+    // Clear all buffers
+    while (ob_get_level()) {
+        ob_end_clean();
+    }
+
+    nocache_headers();
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename="bua-logs-' . date('Y-m-d') . '.csv"');
+
+    echo $csv;
+    exit;
 });
+
+BUA();

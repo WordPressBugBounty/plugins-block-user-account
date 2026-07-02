@@ -1,0 +1,386 @@
+/**
+ * Block User Account - User List Styles
+ *
+ * @package    Block_User_Account
+ * @subpackage Assets
+ * @since      2.0.0
+ */
+
+/* Column Widths */
+.column-bua_status,
+.column-bua_reason,
+.column-bua_expiry,
+.column-bua_blocked_by {
+    width: 14%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Status Badges */
+.bua-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    min-width: 80px;
+}
+
+.bua-badge .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+}
+
+.bua-badge:hover {
+    transform: scale(1.05);
+}
+
+.bua-active {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.bua-temp-blocked {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffc107;
+}
+
+.bua-perma-blocked {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Reason Column */
+.bua-reason-text {
+    display: block;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: help;
+    margin: 0 auto;
+    font-size: 13px;
+}
+
+.bua-no-reason {
+    color: #999;
+    font-size: 12px;
+}
+
+.bua-na {
+    color: #ccc;
+    font-size: 16px;
+}
+
+/* Expiry Column */
+.bua-permanent {
+    display: inline-block;
+    padding: 3px 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.bua-expired {
+    display: inline-block;
+    padding: 3px 10px;
+    background-color: #e2e3e5;
+    color: #383d41;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.bua-expiring-soon {
+    color: #e74c3c;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.bua-expiring-soon small {
+    color: #999;
+    font-weight: 400;
+}
+
+.bua-expiring-week {
+    color: #f39c12;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.bua-expiring-week small {
+    color: #999;
+    font-weight: 400;
+}
+
+.bua-expiring-later {
+    color: #666;
+    font-size: 13px;
+}
+
+.bua-expiring-later small {
+    color: #999;
+    font-weight: 400;
+}
+
+/* Filter Dropdown */
+.bua-filter-dropdown {
+    float: none;
+    margin-right: 8px;
+    min-width: 200px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #8c8f94;
+    font-size: 13px;
+}
+
+/* Row Actions */
+.bua-row-action {
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.bua-row-action:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
+.bua-row-action[data-action="block"] {
+    color: #e74c3c;
+}
+
+.bua-row-action[data-action="unblock"] {
+    color: #27ae60;
+}
+
+/* Loading State */
+.bua-row-loading {
+    opacity: 0.5;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Notice Messages */
+.bua-notice {
+    margin: 15px 0 10px;
+    border-left-width: 4px;
+    padding: 12px 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.bua-notice-success {
+    background-color: #d4edda;
+    border-left-color: #27ae60;
+    color: #155724;
+}
+
+.bua-notice-error {
+    background-color: #f8d7da;
+    border-left-color: #e74c3c;
+    color: #721c24;
+}
+
+.bua-notice-warning {
+    background-color: #fff3cd;
+    border-left-color: #f39c12;
+    color: #856404;
+}
+
+.bua-notice-info {
+    background-color: #d1ecf1;
+    border-left-color: #3498db;
+    color: #0c5460;
+}
+
+/* Tooltip */
+.bua-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.bua-tooltip .bua-tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 1000;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.bua-tooltip .bua-tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.bua-tooltip:hover .bua-tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 782px) {
+    .column-bua_reason {
+        display: none;
+    }
+
+    .column-bua_blocked_by {
+        display: none;
+    }
+
+    .bua-badge {
+        padding: 4px 8px;
+        font-size: 11px;
+        min-width: auto;
+    }
+
+    .bua-badge .dashicons {
+        font-size: 12px;
+        width: 12px;
+        height: 12px;
+    }
+
+    .bua-filter-dropdown {
+        min-width: 150px;
+        margin-bottom: 10px;
+    }
+
+    .bua-reason-text {
+        max-width: 120px;
+    }
+}
+
+/* Bulk Action Confirmation */
+.bua-bulk-confirm-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: bua-fade-in 0.2s ease;
+}
+
+.bua-bulk-confirm-modal {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 90%;
+    animation: bua-slide-up 0.3s ease;
+}
+
+.bua-bulk-confirm-modal h3 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #1d2327;
+}
+
+.bua-bulk-confirm-modal p {
+    font-size: 14px;
+    color: #646970;
+    margin: 15px 0;
+    line-height: 1.6;
+}
+
+.bua-bulk-confirm-modal .bua-confirm-actions {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.bua-bulk-confirm-modal .button {
+    margin-left: 10px;
+}
+
+@keyframes bua-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes bua-slide-up {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Quick Action Spinner */
+.bua-spinner {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #0073aa;
+    border-radius: 50%;
+    animation: bua-spin 0.6s linear infinite;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+@keyframes bua-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Highlight Row */
+.bua-highlight-row {
+    animation: bua-highlight 2s ease;
+}
+
+@keyframes bua-highlight {
+    0% { background-color: #fff3cd; }
+    100% { background-color: transparent; }
+}
+
+/* Export Button */
+.bua-export-button {
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+/* Print Styles */
+@media print {
+    .bua-row-action,
+    .bua-filter-dropdown,
+    .bua-quick-action {
+        display: none;
+    }
+
+    .bua-badge {
+        border: 1px solid #000;
+        background: none;
+        color: #000;
+    }
+}

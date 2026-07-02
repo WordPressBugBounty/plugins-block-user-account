@@ -1,16 +1,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Block User Account\n"
-"POT-Creation-Date: 2025-08-29 02:30+0330\n"
-"PO-Revision-Date: 2025-08-29 02:30+0330\n"
+"POT-Creation-Date: 2026-07-02 15:04+0330\n"
+"PO-Revision-Date: 2026-07-02 15:04+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.7\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.9\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: block-user-account.php\n"
@@ -20,58 +20,986 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: block-user-account.php:35
-msgid "User Account Status"
-msgstr "وضعیت حساب کاربر"
+#: admin/class-admin-menu.php:34
+msgid "Block User Account Settings"
+msgstr "تنظیمات مسدودسازی حساب کاربری"
 
-#: block-user-account.php:43
-msgid "Green: Account is Active. / Red: Account is Blocked."
-msgstr "سبز: حساب فعال است. / قرمز: حساب مسدود است."
+#. Plugin Name of the plugin/theme
+#: admin/class-admin-menu.php:35
+msgid "Block User Account"
+msgstr "مسدودسازی حساب کاربری"
 
-#: block-user-account.php:49
-msgid "Why the user is blocked Message"
-msgstr "پیام چرا کاربر مسدود شده است"
+#: admin/class-admin-menu.php:75 block-user-account.php:230
+#: includes/class-authentication.php:118
+msgid ""
+"Your account has been temporarily disabled. Please contact the administrator."
+msgstr "حساب کاربری شما موقتا غیرفعال شده است. لطفا با مدیر تماس بگیرید."
 
-#: block-user-account.php:93
-msgid "Block Users"
-msgstr "مسدودسازی کاربر"
+#: admin/class-admin-menu.php:90
+msgid "User Notifications"
+msgstr "اعلان‌های کاربر"
 
-#: block-user-account.php:94
-msgid "Active Users"
-msgstr "فعال کردن کاربر"
+#: admin/class-admin-menu.php:92
+msgid "Email to Users"
+msgstr "ایمیل به کاربران"
 
-#: block-user-account.php:128
-msgid "User Status"
-msgstr "وضعیت کاربر"
+#: admin/class-admin-menu.php:93
+msgid "Send email to users when their account is blocked or unblocked."
+msgstr "ارسال ایمیل به کاربران هنگام مسدود یا رفع مسدودی حسابشان."
 
-#: block-user-account.php:129
-msgid "Blocked Reason"
-msgstr "دلیل مسدودی"
+#: admin/class-admin-menu.php:97
+msgid "Email to Admin"
+msgstr "ایمیل به مدیر"
 
-#: block-user-account.php:136
+#: admin/class-admin-menu.php:98
+msgid "Notify administrator when a user is blocked or unblocked."
+msgstr "اطلاع‌رسانی به مدیر هنگام مسدود یا رفع مسدودی کاربر."
+
+#: admin/class-admin-menu.php:102
+msgid "Daily Summary"
+msgstr "خلاصه روزانه"
+
+#: admin/class-admin-menu.php:103
+msgid "Receive daily email summary of blocking activities."
+msgstr "دریافت خلاصه ایمیل روزانه از فعالیت‌های مسدودسازی."
+
+#: admin/class-admin-menu.php:107 admin/class-admin-menu.php:419
+msgid "Weekly Summary"
+msgstr "خلاصه هفتگی"
+
+#: admin/class-admin-menu.php:108
+msgid "Receive weekly email summary of blocking activities."
+msgstr "دریافت خلاصه ایمیل هفتگی از فعالیت‌های مسدودسازی."
+
+#: admin/class-admin-menu.php:113
+msgid "Default Block Message"
+msgstr "پیام پیش‌فرض مسدودسازی"
+
+#: admin/class-admin-menu.php:115
+msgid "Default message shown to users when blocked. Can be overridden per user."
+msgstr ""
+"پیام پیش‌فرضی که به کاربران هنگام مسدود شدن نشان داده می‌شود. قابل تغییر برای "
+"هر کاربر."
+
+#: admin/class-admin-menu.php:117
+msgid "Auto Unblock"
+msgstr "رفع مسدودی خودکار"
+
+#: admin/class-admin-menu.php:119
+msgid "Automatic Unblock"
+msgstr "رفع مسدودی خودکار"
+
+#: admin/class-admin-menu.php:120
+msgid "Automatically unblock users when their block period expires."
+msgstr "رفع مسدودی خودکار کاربران با پایان یافتن دوره مسدودی."
+
+#: admin/class-admin-menu.php:125
+msgid "Activity Log"
+msgstr "گزارش فعالیت"
+
+#: admin/class-admin-menu.php:127
+msgid "Enable Logging"
+msgstr "فعال‌سازی ثبت گزارش"
+
+#: admin/class-admin-menu.php:128
+msgid "Log all blocking and unblocking activities."
+msgstr "ثبت تمام فعالیت‌های مسدود و رفع مسدودی."
+
+#: admin/class-admin-menu.php:130
+msgid "Log Retention"
+msgstr "مدت نگهداری گزارش"
+
+#: admin/class-admin-menu.php:132
+msgid "Days to keep activity logs before automatic cleanup."
+msgstr "تعداد روزهای نگهداری گزارش‌های فعالیت قبل از پاک‌سازی خودکار."
+
+#: admin/class-admin-menu.php:145
+msgid "You do not have sufficient permissions to access this page."
+msgstr "شما مجوز دسترسی به این صفحه را ندارید."
+
+#: admin/class-admin-menu.php:159
+msgid "Manage blocking settings, view statistics, and use tools"
+msgstr "مدیریت تنظیمات مسدودسازی، مشاهده آمار و استفاده از ابزارها"
+
+#: admin/class-admin-menu.php:167 admin/class-user-profile.php:643
+#: block-user-account.php:191
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: admin/class-admin-menu.php:172
+msgid "Statistics"
+msgstr "آمار"
+
+#: admin/class-admin-menu.php:177
+msgid "Tools"
+msgstr "ابزارها"
+
+#: admin/class-admin-menu.php:207
+msgid "Save All Settings"
+msgstr "ذخیره تمام تنظیمات"
+
+#: admin/class-admin-menu.php:229 includes/class-cron-jobs.php:441
+msgid "Currently Blocked"
+msgstr "در حال حاضر مسدود"
+
+#: admin/class-admin-menu.php:236
+msgid "Blocked This Month"
+msgstr "مسدود شده در این ماه"
+
+#: admin/class-admin-menu.php:243
+msgid "Unblocked This Month"
+msgstr "رفع مسدودی شده در این ماه"
+
+#: admin/class-admin-menu.php:250 includes/class-cron-jobs.php:468
+#: includes/class-logger.php:381
+msgid "Auto Unblocked"
+msgstr "رفع مسدودی خودکار"
+
+#: admin/class-admin-menu.php:257 includes/class-cron-jobs.php:475
+msgid "Failed Attempts"
+msgstr "تلاش‌های ناموفق"
+
+#: admin/class-admin-menu.php:264 admin/class-user-profile.php:552
+msgid "Total Logs"
+msgstr "کل گزارش‌ها"
+
+#: admin/class-admin-menu.php:273 includes/class-cron-jobs.php:496
+msgid "Recent Activities"
+msgstr "فعالیت‌های اخیر"
+
+#: admin/class-admin-menu.php:279
+msgid "User"
+msgstr "کاربر"
+
+#: admin/class-admin-menu.php:280
+msgid "Action"
+msgstr "عملیات"
+
+#: admin/class-admin-menu.php:281
+msgid "Admin"
+msgstr "مدیر"
+
+#: admin/class-admin-menu.php:282
+msgid "Date"
+msgstr "تاریخ"
+
+#: admin/class-admin-menu.php:299 admin/class-user-list.php:213
+#: admin/class-user-profile.php:134 admin/class-user-profile.php:603
+#: includes/class-cron-jobs.php:500 includes/class-logger.php:208
+msgid "Unknown"
+msgstr "ناشناس"
+
+#: admin/class-admin-menu.php:303 admin/class-user-profile.php:313
+#: includes/class-email-notifications.php:221
+#: includes/class-email-notifications.php:360
+msgid "System"
+msgstr "سیستم"
+
+#: admin/class-admin-menu.php:304 admin/class-user-profile.php:320
+#: admin/class-user-profile.php:619 includes/class-cron-jobs.php:506
+msgid "ago"
+msgstr "پیش"
+
+#: admin/class-admin-menu.php:325 admin/class-admin-menu.php:404
+msgid "Check Expired Blocks"
+msgstr "بررسی مسدودی‌های منقضی"
+
+#: admin/class-admin-menu.php:328
+msgid "Manually check and unblock users whose block period has expired."
+msgstr "بررسی و رفع مسدودی دستی کاربرانی که دوره مسدودی‌شان پایان یافته است."
+
+#: admin/class-admin-menu.php:333
+msgid "Run Check Now"
+msgstr "اکنون بررسی کن"
+
+#: admin/class-admin-menu.php:342 admin/class-admin-menu.php:414
+msgid "Clean Old Logs"
+msgstr "پاک‌سازی گزارش‌های قدیمی"
+
+#: admin/class-admin-menu.php:345
+msgid "Delete activity logs older than the retention period."
+msgstr "حذف گزارش‌های فعالیت قدیمی‌تر از دوره نگهداری."
+
+#: admin/class-admin-menu.php:349
+msgid "Are you sure you want to delete old logs?"
+msgstr "آیا از حذف گزارش‌های قدیمی اطمینان دارید؟"
+
+#: admin/class-admin-menu.php:351
+msgid "Clean Logs"
+msgstr "پاک‌سازی گزارش‌ها"
+
+#: admin/class-admin-menu.php:360
+msgid "Export Logs"
+msgstr "خروجی گزارش‌ها"
+
+#: admin/class-admin-menu.php:363
+msgid "Download all activity logs as a CSV file."
+msgstr "دانلود تمام گزارش‌های فعالیت به‌صورت فایل CSV."
+
+#: admin/class-admin-menu.php:366
+msgid "Export CSV"
+msgstr "خروجی CSV"
+
+#: admin/class-admin-menu.php:374
+msgid "Test Email"
+msgstr "ایمیل آزمایشی"
+
+#: admin/class-admin-menu.php:377
+msgid "Send a test email to verify email configuration."
+msgstr "ارسال یک ایمیل آزمایشی برای بررسی پیکربندی ایمیل."
+
+#: admin/class-admin-menu.php:382
+msgid "Send Test Email"
+msgstr "ارسال ایمیل آزمایشی"
+
+#: admin/class-admin-menu.php:391
+msgid "Scheduled Tasks"
+msgstr "وظایف زمان‌بندی شده"
+
+#: admin/class-admin-menu.php:397
+msgid "Task"
+msgstr "وظیفه"
+
+#: admin/class-admin-menu.php:398
+msgid "Next Run"
+msgstr "اجرای بعدی"
+
+#: admin/class-admin-menu.php:399 admin/class-user-list.php:46
+msgid "Status"
+msgstr "وضعیت"
+
+#: admin/class-admin-menu.php:406 admin/class-admin-menu.php:411
+#: admin/class-admin-menu.php:416 admin/class-admin-menu.php:421
+#: admin/class-user-list.php:102 admin/class-user-profile.php:73
+#: admin/class-user-profile.php:438
 msgid "Active"
 msgstr "فعال"
 
-#: block-user-account.php:137
+#: admin/class-admin-menu.php:409
+msgid "Daily Report"
+msgstr "گزارش روزانه"
+
+#: admin/class-admin-menu.php:411 admin/class-admin-menu.php:421
+msgid "Disabled"
+msgstr "غیرفعال"
+
+#: admin/class-admin-menu.php:443
+msgid "Expired blocks check completed."
+msgstr "بررسی مسدودی‌های منقضی کامل شد."
+
+#: admin/class-admin-menu.php:449
+#, php-format
+msgid "%d old log entries deleted."
+msgstr "%d مورد از گزارش‌های قدیمی حذف شد."
+
+#: admin/class-admin-menu.php:455
+msgid "Test email sent successfully!"
+msgstr "ایمیل آزمایشی با موفقیت ارسال شد!"
+
+#: admin/class-admin-menu.php:457
+msgid "Failed to send test email."
+msgstr "ارسال ایمیل آزمایشی ناموفق بود."
+
+#: admin/class-admin-menu.php:522
+msgid "days"
+msgstr "روز"
+
+#: admin/class-admin-menu.php:534
+msgid "Email Notifications"
+msgstr "اعلان‌های ایمیل"
+
+#: admin/class-admin-menu.php:538
+msgid "General Settings"
+msgstr "تنظیمات عمومی"
+
+#: admin/class-admin-menu.php:542
+msgid "Activity Logs"
+msgstr "گزارش‌های فعالیت"
+
+#: admin/class-bulk-actions.php:40
+msgid "Block Users (Permanent)"
+msgstr "مسدودسازی کاربران (دائمی)"
+
+#: admin/class-bulk-actions.php:41
+msgid "Block Users (30 Days)"
+msgstr "مسدودسازی کاربران (۳۰ روز)"
+
+#: admin/class-bulk-actions.php:42
+msgid "Block Users (7 Days)"
+msgstr "مسدودسازی کاربران (۷ روز)"
+
+#: admin/class-bulk-actions.php:43
+msgid "Block Users (1 Day)"
+msgstr "مسدودسازی کاربران (۱ روز)"
+
+#: admin/class-bulk-actions.php:44
+msgid "Unblock Users"
+msgstr "رفع مسدودی کاربران"
+
+#: admin/class-bulk-actions.php:60
+msgid "You do not have permission to perform this action."
+msgstr "شما مجوز انجام این عملیات را ندارید."
+
+#: admin/class-bulk-actions.php:272
+#, php-format
+msgid "%d user(s) permanently blocked."
+msgstr "%d کاربر به‌طور دائمی مسدود شد."
+
+#: admin/class-bulk-actions.php:273
+#, php-format
+msgid "%d user(s) blocked for 30 days."
+msgstr "%d کاربر برای ۳۰ روز مسدود شد."
+
+#: admin/class-bulk-actions.php:274
+#, php-format
+msgid "%d user(s) blocked for 7 days."
+msgstr "%d کاربر برای ۷ روز مسدود شد."
+
+#: admin/class-bulk-actions.php:275
+#, php-format
+msgid "%d user(s) blocked for 1 day."
+msgstr "%d کاربر برای ۱ روز مسدود شد."
+
+#: admin/class-bulk-actions.php:276 includes/class-block-manager.php:201
+#, php-format
+msgid "%d user(s) unblocked successfully."
+msgstr "%d کاربر با موفقیت رفع مسدودی شد."
+
+#: admin/class-bulk-actions.php:287
+#, php-format
+msgid "%d user(s) skipped."
+msgstr "%d کاربر نادیده گرفته شد."
+
+#: admin/class-bulk-actions.php:292
+#, php-format
+msgid "%d user(s) failed to process."
+msgstr "پردازش %d کاربر ناموفق بود."
+
+#: admin/class-bulk-actions.php:328 admin/class-bulk-actions.php:389
+msgid "Please select at least one user."
+msgstr "لطفا حداقل یک کاربر انتخاب کنید."
+
+#: admin/class-bulk-actions.php:333
+#, php-format
+msgid ""
+"Are you sure you want to permanently block %d user(s)? They will not be able "
+"to login until manually unblocked."
+msgstr ""
+"آیا از مسدودسازی دائمی %d کاربر اطمینان دارید؟ آنها تا زمان رفع مسدودی دستی "
+"قادر به ورود نخواهند بود."
+
+#: admin/class-bulk-actions.php:334 admin/class-bulk-actions.php:391
+#, php-format
+msgid "Are you sure you want to block %d user(s) for 30 days?"
+msgstr "آیا از مسدودسازی %d کاربر برای ۳۰ روز اطمینان دارید؟"
+
+#: admin/class-bulk-actions.php:335 admin/class-bulk-actions.php:392
+#, php-format
+msgid "Are you sure you want to block %d user(s) for 7 days?"
+msgstr "آیا از مسدودسازی %d کاربر برای ۷ روز اطمینان دارید؟"
+
+#: admin/class-bulk-actions.php:336 admin/class-bulk-actions.php:393
+#, php-format
+msgid "Are you sure you want to block %d user(s) for 1 day?"
+msgstr "آیا از مسدودسازی %d کاربر برای ۱ روز اطمینان دارید؟"
+
+#: admin/class-bulk-actions.php:337 admin/class-bulk-actions.php:394
+#, php-format
+msgid "Are you sure you want to unblock %d user(s)?"
+msgstr "آیا از رفع مسدودی %d کاربر اطمینان دارید؟"
+
+#: admin/class-bulk-actions.php:390
+#, php-format
+msgid "Are you sure you want to permanently block %d user(s)?"
+msgstr "آیا از مسدودسازی دائمی %d کاربر اطمینان دارید؟"
+
+#: admin/class-bulk-actions.php:395
+msgid "Processing bulk action..."
+msgstr "در حال پردازش عملیات گروهی..."
+
+#: admin/class-user-list.php:47 admin/class-user-profile.php:81
+msgid "Block Reason"
+msgstr "دلیل مسدودی"
+
+#: admin/class-user-list.php:48
+msgid "Block Expiry"
+msgstr "انقضای مسدودی"
+
+#: admin/class-user-list.php:49
+msgid "Blocked By"
+msgstr "مسدود شده توسط"
+
+#: admin/class-user-list.php:98 admin/class-user-profile.php:70
+#: admin/class-user-profile.php:430 includes/class-logger.php:374
 msgid "Blocked"
 msgstr "مسدود"
 
-#: block-user-account.php:169
-msgid ""
-"Your account has been temporarily disabled. Please contact the administrator."
-msgstr "حساب کاربری شما مسدود شده است. لطفا با مدیریت ارتباط برقرار کنید."
+#: admin/class-user-list.php:130
+msgid "No reason provided"
+msgstr "دلیلی ارائه نشده است"
 
-#. Plugin Name of the plugin/theme
-msgid "Block User Account"
-msgstr "مسدودساز حساب کاربری"
+#: admin/class-user-list.php:158 admin/class-user-profile.php:102
+#: admin/class-user-profile.php:180
+msgid "Permanent"
+msgstr "دائمی"
+
+#: admin/class-user-list.php:165
+msgid "Expired"
+msgstr "منقضی شده"
+
+#: admin/class-user-list.php:173 admin/class-user-profile.php:577
+#, php-format
+msgid "%d days"
+msgstr "%d روز"
+
+#: admin/class-user-list.php:175 admin/class-user-profile.php:172
+#: admin/class-user-profile.php:574
+#, php-format
+msgid "%d hours"
+msgstr "%d ساعت"
+
+#: admin/class-user-list.php:177
+msgid "Less than 1 hour"
+msgstr "کمتر از ۱ ساعت"
+
+#: admin/class-user-list.php:219
+msgid "Deleted User"
+msgstr "کاربر حذف شده"
+
+#: admin/class-user-list.php:256
+msgid "All Account Statuses"
+msgstr "تمام وضعیت‌های حساب"
+
+#: admin/class-user-list.php:258
+msgid "Active Accounts"
+msgstr "حساب‌های فعال"
+
+#: admin/class-user-list.php:261
+msgid "Blocked Accounts"
+msgstr "حساب‌های مسدود"
+
+#: admin/class-user-list.php:264
+msgid "Permanently Blocked"
+msgstr "مسدود دائمی"
+
+#: admin/class-user-list.php:267 includes/class-logger.php:380
+msgid "Temporarily Blocked"
+msgstr "مسدود موقت"
+
+#: admin/class-user-list.php:270
+msgid "Expired Blocks"
+msgstr "مسدودی‌های منقضی"
+
+#: admin/class-user-list.php:273
+msgid "Filter"
+msgstr "فیلتر"
+
+#: admin/class-user-list.php:397 includes/class-block-manager.php:171
+msgid "Unblock"
+msgstr "رفع مسدودی"
+
+#: admin/class-user-list.php:404 includes/class-block-manager.php:180
+msgid "Block"
+msgstr "مسدود کردن"
+
+#: admin/class-user-list.php:441 includes/class-block-manager.php:129
+msgid "Are you sure you want to block this user?"
+msgstr "آیا از مسدود کردن این کاربر اطمینان دارید؟"
+
+#: admin/class-user-list.php:442 includes/class-block-manager.php:130
+msgid "Are you sure you want to unblock this user?"
+msgstr "آیا از رفع مسدودی این کاربر اطمینان دارید؟"
+
+#: admin/class-user-list.php:443 includes/class-block-manager.php:131
+msgid "An error occurred. Please try again."
+msgstr "خطایی رخ داد. لطفا دوباره تلاش کنید."
+
+#: admin/class-user-profile.php:51
+msgid "Account Blocking Management"
+msgstr "مدیریت مسدودسازی حساب"
+
+#: admin/class-user-profile.php:56
+msgid "Account Status"
+msgstr "وضعیت حساب"
+
+#: admin/class-user-profile.php:88
+msgid "Enter the reason for blocking this user..."
+msgstr "دلیل مسدودسازی این کاربر را وارد کنید..."
+
+#: admin/class-user-profile.php:90
+msgid ""
+"This message will be shown to the user when they try to login. Leave empty to "
+"use the default message."
+msgstr ""
+"این پیام هنگام تلاش کاربر برای ورود نشان داده می‌شود. برای استفاده از پیام "
+"پیش‌فرض خالی بگذارید."
+
+#: admin/class-user-profile.php:97
+msgid "Block Duration"
+msgstr "مدت مسدودی"
+
+#: admin/class-user-profile.php:105
+msgid "Custom Date"
+msgstr "تاریخ دلخواه"
+
+#: admin/class-user-profile.php:107
+msgid "1 Day"
+msgstr "۱ روز"
+
+#: admin/class-user-profile.php:108
+msgid "7 Days"
+msgstr "۷ روز"
+
+#: admin/class-user-profile.php:109
+msgid "30 Days"
+msgstr "۳۰ روز"
+
+#: admin/class-user-profile.php:110
+msgid "90 Days"
+msgstr "۹۰ روز"
+
+#: admin/class-user-profile.php:121
+msgid "Select the date and time when this block should automatically expire."
+msgstr "تاریخ و زمان پایان خودکار این مسدودی را انتخاب کنید."
+
+#: admin/class-user-profile.php:129
+msgid "Block Information"
+msgstr "اطلاعات مسدودی"
+
+#: admin/class-user-profile.php:137
+msgid "Blocked By:"
+msgstr "مسدود شده توسط:"
+
+#: admin/class-user-profile.php:144
+msgid "Blocked On:"
+msgstr "تاریخ مسدودی:"
+
+#: admin/class-user-profile.php:154
+msgid "Expires On:"
+msgstr "تاریخ انقضا:"
+
+#: admin/class-user-profile.php:167
+msgid "Time Remaining:"
+msgstr "زمان باقی‌مانده:"
+
+#: admin/class-user-profile.php:170
+#, php-format
+msgid "%d days, %d hours"
+msgstr "%d روز و %d ساعت"
+
+#: admin/class-user-profile.php:179
+msgid "Duration:"
+msgstr "مدت:"
+
+#: admin/class-user-profile.php:189 admin/class-user-profile.php:389
+msgid "Block History"
+msgstr "تاریخچه مسدودی"
+
+#: admin/class-user-profile.php:194 admin/class-user-profile.php:393
+msgid "Loading history..."
+msgstr "در حال بارگیری تاریخچه..."
+
+#: admin/class-user-profile.php:291 includes/class-block-manager.php:154
+msgid "Permission denied."
+msgstr "دسترسی رد شد."
+
+#: admin/class-user-profile.php:297 includes/class-block-manager.php:160
+msgid "Invalid user ID."
+msgstr "شناسه کاربر نامعتبر است."
+
+#: admin/class-user-profile.php:305
+msgid "No history available for this user."
+msgstr "تاریخچه‌ای برای این کاربر موجود نیست."
+
+#: admin/class-user-profile.php:416
+msgid "Failed to load history."
+msgstr "بارگیری تاریخچه ناموفق بود."
+
+#: admin/class-user-profile.php:513
+msgid "Blocked Users Overview"
+msgstr "نمای کلی کاربران مسدود"
+
+#: admin/class-user-profile.php:536
+msgid "User Block Overview"
+msgstr "نمای کلی مسدودی کاربر"
+
+#: admin/class-user-profile.php:537
+msgid "Real-time account management summary"
+msgstr "خلاصه مدیریت لحظه‌ای حساب"
+
+#: admin/class-user-profile.php:544 admin/class-user-profile.php:637
+msgid "Blocked Users"
+msgstr "کاربران مسدود"
+
+#: admin/class-user-profile.php:548 admin/class-user-profile.php:564
+#: includes/class-cron-jobs.php:482
+msgid "Expiring Soon"
+msgstr "در حال انقضا"
+
+#: admin/class-user-profile.php:556
+msgid "Actions This Week"
+msgstr "عملیات این هفته"
+
+#: admin/class-user-profile.php:598
+msgid "Recent Activity"
+msgstr "فعالیت اخیر"
+
+#: admin/class-user-profile.php:631
+msgid "No recent activity"
+msgstr "فعالیت اخیری وجود ندارد"
+
+#: admin/class-user-profile.php:640
+msgid "All Users"
+msgstr "تمام کاربران"
+
+#: block-user-account.php:158
+#, php-format
+msgid "Blocked (%d)"
+msgstr "مسدود (%d)"
+
+#: block-user-account.php:167
+msgid "View Blocked Users"
+msgstr "مشاهده کاربران مسدود"
+
+#: block-user-account.php:175
+msgid "Block Settings"
+msgstr "تنظیمات مسدودی"
+
+#: block-user-account.php:212
+msgid "Documentation"
+msgstr "مستندات"
+
+#: block-user-account.php:218
+msgid "Rate Us"
+msgstr "به ما امتیاز دهید"
+
+#: block-user-account.php:307
+msgid "Cannot unserialize singleton"
+msgstr "نمی‌توان تک‌نمونه را غیرسریالی کرد"
+
+#: includes/class-authentication.php:129
+#, php-format
+msgid "Your account will be unblocked on %s."
+msgstr "حساب شما در تاریخ %s رفع مسدودی خواهد شد."
+
+#: includes/class-authentication.php:201
+msgid "Your account has been unblocked. You can now login."
+msgstr "حساب شما رفع مسدودی شد. اکنون می‌توانید وارد شوید."
+
+#: includes/class-block-manager.php:132
+msgid "User blocked successfully."
+msgstr "کاربر با موفقیت مسدود شد."
+
+#: includes/class-block-manager.php:133
+msgid "User unblocked successfully."
+msgstr "کاربر با موفقیت رفع مسدودی شد."
+
+#: includes/class-block-manager.php:150
+msgid "Security check failed."
+msgstr "بررسی امنیتی ناموفق بود."
+
+#: includes/class-block-manager.php:164
+msgid "You cannot modify your own account."
+msgstr "شما نمی‌توانید حساب خود را تغییر دهید."
+
+#: includes/class-block-manager.php:185
+msgid "Invalid action."
+msgstr "عملیات نامعتبر."
+
+#: includes/class-block-manager.php:199
+#, php-format
+msgid "%d user(s) blocked successfully."
+msgstr "%d کاربر با موفقیت مسدود شد."
+
+#: includes/class-block-manager.php:200
+#, php-format
+msgid "%d user(s) temporarily blocked for 30 days."
+msgstr "%d کاربر به‌طور موقت برای ۳۰ روز مسدود شد."
+
+#: includes/class-cron-jobs.php:43
+msgid "Every 15 Minutes"
+msgstr "هر ۱۵ دقیقه"
+
+#: includes/class-cron-jobs.php:48
+msgid "Every 6 Hours"
+msgstr "هر ۶ ساعت"
+
+#: includes/class-cron-jobs.php:53
+msgid "Weekly"
+msgstr "هفتگی"
+
+#: includes/class-cron-jobs.php:170
+#, php-format
+msgid "[%s] Daily Block Report - %s"
+msgstr "[%s] گزارش روزانه مسدودی - %s"
+
+#: includes/class-cron-jobs.php:200
+#, php-format
+msgid "[%s] Weekly Block Summary - Week %s"
+msgstr "[%s] خلاصه هفتگی مسدودی - هفته %s"
+
+#: includes/class-cron-jobs.php:237
+msgid "Last 24 Hours"
+msgstr "۲۴ ساعت گذشته"
+
+#: includes/class-cron-jobs.php:261
+#, php-format
+msgid "Week %s (%s - %s)"
+msgstr "هفته %s (%s - %s)"
+
+#: includes/class-cron-jobs.php:435
+msgid "Daily Block Report"
+msgstr "گزارش روزانه مسدودی"
+
+#: includes/class-cron-jobs.php:435
+msgid "Weekly Block Summary"
+msgstr "خلاصه هفتگی مسدودی"
+
+#: includes/class-cron-jobs.php:447
+msgid "Blocked Today"
+msgstr "مسدود شده امروز"
+
+#: includes/class-cron-jobs.php:454
+msgid "Blocked This Week"
+msgstr "مسدود شده این هفته"
+
+#: includes/class-cron-jobs.php:461
+msgid "Unblocked Today"
+msgstr "رفع مسدودی شده امروز"
+
+#: includes/class-cron-jobs.php:490
+msgid "Attention:"
+msgstr "توجه:"
+
+#: includes/class-cron-jobs.php:491
+#, php-format
+msgid "%d user(s) will be automatically unblocked within the next %d days."
+msgstr "%d کاربر تا %d روز آینده به‌طور خودکار رفع مسدودی خواهند شد."
+
+#: includes/class-cron-jobs.php:515
+msgid "View All Users"
+msgstr "مشاهده تمام کاربران"
+
+#: includes/class-cron-jobs.php:520
+#, php-format
+msgid "Automated report from %s"
+msgstr "گزارش خودکار از %s"
+
+#: includes/class-cron-jobs.php:521
+msgid "To disable these reports, go to Block User Account settings."
+msgstr "برای غیرفعال کردن این گزارش‌ها، به تنظیمات مسدودسازی حساب کاربری بروید."
+
+#: includes/class-cron-jobs.php:541
+#, php-format
+msgid "[%s] %d User(s) Automatically Unblocked"
+msgstr "[%s] %d کاربر به‌طور خودکار رفع مسدودی شد"
+
+#: includes/class-cron-jobs.php:547
+#, php-format
+msgid ""
+"The cron job has automatically unblocked %d user(s) because their block "
+"period has expired."
+msgstr ""
+"وظیفه زمان‌بندی به‌طور خودکار %d کاربر را به دلیل پایان دوره مسدودی رفع مسدود "
+"کرد."
+
+#: includes/class-email-notifications.php:52
+#, php-format
+msgid "[%s] Your account has been blocked"
+msgstr "[%s] حساب کاربری شما مسدود شده است"
+
+#: includes/class-email-notifications.php:96
+#, php-format
+msgid "[%s] Your account has been unblocked"
+msgstr "[%s] حساب کاربری شما رفع مسدودی شده است"
+
+#: includes/class-email-notifications.php:138
+#, php-format
+msgid "[%s] User Account Blocked: %s"
+msgstr "[%s] حساب کاربر مسدود شد: %s"
+
+#: includes/class-email-notifications.php:205
+msgid "User Account Blocked"
+msgstr "حساب کاربر مسدود شد"
+
+#: includes/class-email-notifications.php:208
+msgid "A user account has been blocked on your website."
+msgstr "یک حساب کاربری در وبسایت شما مسدود شده است."
+
+#: includes/class-email-notifications.php:212
+#: includes/class-email-notifications.php:351
+msgid "User:"
+msgstr "کاربر:"
+
+#: includes/class-email-notifications.php:216
+#: includes/class-email-notifications.php:355
+msgid "Email:"
+msgstr "ایمیل:"
+
+#: includes/class-email-notifications.php:220
+msgid "Blocked by:"
+msgstr "مسدود شده توسط:"
+
+#: includes/class-email-notifications.php:224
+#: includes/class-email-notifications.php:363
+msgid "Date:"
+msgstr "تاریخ:"
+
+#: includes/class-email-notifications.php:229
+#: includes/class-email-notifications.php:502
+msgid "Reason:"
+msgstr "دلیل:"
+
+#: includes/class-email-notifications.php:238
+#: includes/class-email-notifications.php:371
+msgid "View User Profile"
+msgstr "مشاهده پروفایل کاربر"
+
+#: includes/class-email-notifications.php:243
+#: includes/class-email-notifications.php:376
+#, php-format
+msgid "This is an automated notification from %s"
+msgstr "این یک اعلان خودکار از %s است"
+
+#: includes/class-email-notifications.php:277
+#, php-format
+msgid "[%s] User Account Unblocked: %s"
+msgstr "[%s] حساب کاربر رفع مسدودی شد: %s"
+
+#: includes/class-email-notifications.php:344
+msgid "User Account Unblocked"
+msgstr "حساب کاربر رفع مسدودی شد"
+
+#: includes/class-email-notifications.php:347
+msgid "A user account has been unblocked on your website."
+msgstr "یک حساب کاربری در وبسایت شما رفع مسدودی شده است."
+
+#: includes/class-email-notifications.php:359
+msgid "Unblocked by:"
+msgstr "رفع مسدودی توسط:"
+
+#: includes/class-email-notifications.php:491
+msgid "Account Blocked"
+msgstr "حساب مسدود شد"
+
+#: includes/class-email-notifications.php:494
+#: includes/class-email-notifications.php:611
+#, php-format
+msgid "Hello %s,"
+msgstr "سلام %s،"
+
+#: includes/class-email-notifications.php:497
+msgid "Your account has been blocked on our website."
+msgstr "حساب کاربری شما در وبسایت ما مسدود شده است."
+
+#: includes/class-email-notifications.php:508
+#: includes/class-email-notifications.php:618
+msgid "Account Details:"
+msgstr "جزئیات حساب:"
+
+#: includes/class-email-notifications.php:509
+#: includes/class-email-notifications.php:619
+msgid "Username:"
+msgstr "نام کاربری:"
+
+#: includes/class-email-notifications.php:510
+msgid "Block Date:"
+msgstr "تاریخ مسدودی:"
+
+#: includes/class-email-notifications.php:512
+msgid "Expiry Date:"
+msgstr "تاریخ انقضا:"
+
+#: includes/class-email-notifications.php:514
+msgid "Duration: Permanent"
+msgstr "مدت: دائمی"
+
+#: includes/class-email-notifications.php:518
+msgid "If you believe this is a mistake, please contact the site administrator."
+msgstr "اگر فکر می‌کنید این یک اشتباه است، لطفا با مدیر سایت تماس بگیرید."
+
+#: includes/class-email-notifications.php:522
+msgid "Contact Administrator"
+msgstr "تماس با مدیر"
+
+#: includes/class-email-notifications.php:528
+#: includes/class-email-notifications.php:631
+msgid "This is an automated message. Please do not reply to this email."
+msgstr "این یک پیام خودکار است. لطفا به این ایمیل پاسخ ندهید."
+
+#: includes/class-email-notifications.php:608
+msgid "Account Unblocked"
+msgstr "حساب رفع مسدودی شد"
+
+#: includes/class-email-notifications.php:614
+msgid "Your account has been unblocked and you can now login again."
+msgstr "حساب کاربری شما رفع مسدودی شده است و اکنون می‌توانید دوباره وارد شوید."
+
+#: includes/class-email-notifications.php:620
+msgid "Unblock Date:"
+msgstr "تاریخ رفع مسدودی:"
+
+#: includes/class-email-notifications.php:625
+msgid "Login to Your Account"
+msgstr "ورود به حساب کاربری"
+
+#: includes/class-email-notifications.php:651
+#, php-format
+msgid "[%s] Email Test - Block User Account Plugin"
+msgstr "[%s] تست ایمیل - افزونه مسدودسازی حساب کاربری"
+
+#: includes/class-email-notifications.php:654
+#, php-format
+msgid ""
+"This is a test email from the Block User Account plugin on %s. If you "
+"received this email, your email configuration is working correctly."
+msgstr ""
+"این یک ایمیل آزمایشی از افزونه مسدودسازی حساب کاربری در %s است. اگر این ایمیل "
+"را دریافت کرده‌اید، پیکربندی ایمیل شما صحیح است."
+
+#: includes/class-logger.php:375
+msgid "Unblocked"
+msgstr "رفع مسدودی"
+
+#: includes/class-logger.php:376
+msgid "Bulk Blocked"
+msgstr "مسدودی گروهی"
+
+#: includes/class-logger.php:377
+msgid "Bulk Unblocked"
+msgstr "رفع مسدودی گروهی"
+
+#: includes/class-logger.php:378
+msgid "Quick Blocked"
+msgstr "مسدودی سریع"
+
+#: includes/class-logger.php:379
+msgid "Quick Unblocked"
+msgstr "رفع مسدودی سریع"
+
+#: includes/class-logger.php:382
+msgid "Auto Unblocked (Cron)"
+msgstr "رفع مسدودی خودکار (Cron)"
+
+#: includes/class-logger.php:383
+msgid "Blocked Login Attempt"
+msgstr "تلاش ورود مسدود"
+
+#: includes/class-logger.php:384
+msgid "Failed Login"
+msgstr "ورود ناموفق"
 
 #. Plugin URI of the plugin/theme
 msgid "https://dangoweb.ir/product/buacc-wordpress-user-block-plugin/"
 msgstr "https://dangoweb.ir/product/buacc-wordpress-user-block-plugin/"
 
 #. Description of the plugin/theme
-msgid "Block Users Accounts On your Site."
-msgstr "مسدود کردن حسابهای کاربری در سایت شما."
+msgid ""
+"Advanced user account management - Block users temporarily or permanently "
+"with custom messages, email notifications, activity logs and bulk actions"
+msgstr ""
+"مدیریت پیشرفته حساب کاربری - مسدودسازی موقت یا دائمی کاربران با پیام‌های "
+"سفارشی، اعلان‌های ایمیل، گزارش فعالیت‌ها و عملیات گروهی"
 
 #. Author of the plugin/theme
 msgid "DangoWeb"
@@ -80,40 +1008,3 @@ msgstr "دانگو وب"
 #. Author URI of the plugin/theme
 msgid "https://dangoweb.ir"
 msgstr "https://dangoweb.ir"
-
-#~ msgid "Enabled"
-#~ msgstr "فعال"
-
-#~ msgid "Disabled"
-#~ msgstr "غیرفعال"
-
-#~ msgid "Sorry, you are not allowed to edit this user."
-#~ msgstr "متاسفیم، شما مجاز به ویرایش این کاربر نیستید."
-
-#, php-format
-#~ msgid "%d Users were Blocked."
-#~ msgstr "%d کاربر مسدود شدند."
-
-#, php-format
-#~ msgid "%d Users Activated."
-#~ msgstr "%d کاربر فعال شدند."
-
-#~ msgid "Your account is disabled."
-#~ msgstr "حساب کاربری شما غیرفعال شده است."
-
-#~ msgid "Mahmoud Zoroufchi"
-#~ msgstr "محمود ظروفچی"
-
-#~ msgid "https://zoroufchi.ir"
-#~ msgstr "https://zoroufchi.ir"
-
-#~ msgid ""
-#~ "This plugin blocks user accounts and prevents users from accessing the "
-#~ "site."
-#~ msgstr ""
-#~ "این افزونه حساب کاربر را مسدود کرده و از ورود به بخش کاربری منع می‌کند."
-
-#, fuzzy
-#~| msgid "Block User Account"
-#~ msgid "This Plugin can Block the User Account."
-#~ msgstr "مسدودساز حساب کاربری"
