@@ -108,16 +108,6 @@ class BUA_Cron_Jobs
 
             $expiry_timestamp = strtotime($expiry);
 
-            // Debug output
-            error_log(sprintf(
-                'BUA Debug - User: %d, Now: %s (%d), Expiry: %s (%d)',
-                $user_id,
-                $now_formatted,
-                $now,
-                $expiry,
-                $expiry_timestamp
-            ));
-
             if ($expiry_timestamp && $expiry_timestamp <= $now) {
                 delete_user_meta($user_id, 'user_status');
                 delete_user_meta($user_id, 'user_status_message');

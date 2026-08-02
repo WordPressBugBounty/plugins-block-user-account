@@ -4,7 +4,7 @@
  * Plugin Name: Block User Account
  * Plugin URI: https://dangoweb.ir/product/buacc-wordpress-user-block-plugin/
  * Description: Advanced user account management - Block users temporarily or permanently with custom messages, email notifications, activity logs and bulk actions
- * Version: 2.0.0
+ * Version: 2.0.1
  * Author: DangoWeb
  * Author URI: https://dangoweb.ir
  * Text Domain: block-user-account
@@ -20,7 +20,7 @@ defined('ABSPATH') || exit;
 /**
  * Define plugin constants
  */
-define('BUA_VERSION', '2.0.0');
+define('BUA_VERSION', '2.0.1');
 define('BUA_PLUGIN_FILE', __FILE__);
 define('BUA_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('BUA_PLUGIN_URL', plugin_dir_url(__FILE__));
@@ -116,10 +116,6 @@ final class Block_User_Account
             'block-user-account',
             BUA_PLUGIN_DIR . 'languages/block-user-account-' . $locale . '.mo'
         );
-
-        error_log('BUA Locale: ' . $locale);
-        error_log('BUA Loaded: ' . ($loaded ? 'true' : 'false'));
-        error_log('BUA Textdomain: ' . (is_textdomain_loaded('block-user-account') ? 'true' : 'false'));
     }
 
     /**

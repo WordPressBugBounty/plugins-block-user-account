@@ -27,6 +27,9 @@ class BUA_Authentication
 
         add_filter('login_errors', array($this, 'customize_login_errors'));
         add_filter('login_message', array($this, 'add_login_message'));
+
+        // Block REST API access for blocked users
+        add_filter('rest_authentication_errors', array($this, 'rest_auth_check'), 99);
     }
 
     /**
@@ -236,5 +239,42 @@ class BUA_Authentication
             wp_redirect(wp_login_url());
             exit;
         }
+    }
+
+    /**
+     * Block REST API access for blocked users
+     *
+     * @param WP_Error|bool|null $result Authentication result
+     * @return WP_Error|bool|null
+     */
+    public function rest_auth_check($result)
+    {
+        // If already authenticated or already an error, pass through
+        if ($result !== null) {
+            return $result;
+        }
+
+        $user_id = get_current_user_id();
+
+        if (!$user_id) {
+            return $result;
+        }
+
+        if (get_user_meta($user_id, 'user_status', true) === 'deactive') {
+            // Check for auto-unblock
+            $expiry = get_user_meta($user_id, 'block_expiry_date', true);
+            if ($expiry && strtotime($expiry) < time()) {
+                $this->auto_unblock_user($user_id);
+                return $result;
+            }
+
+            return new WP_Error(
+                'account_disabled',
+                __('Your account has been disabled.', 'block-user-account'),
+                array('status' => 403)
+            );
+        }
+
+        return $result;
     }
 }

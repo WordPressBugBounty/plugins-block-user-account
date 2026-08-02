@@ -371,15 +371,11 @@ class BUA_User_Profile
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function($) {
-                console.log('BUA: Script loaded once');
-
                 var userId = <?php echo $user_id; ?>;
                 var historyLoaded = false;
 
                 function loadHistory() {
                     if (!userId || historyLoaded) return;
-
-                    console.log('BUA: Loading history for user', userId);
                     historyLoaded = true;
 
                     $('#bua-history-row').remove();

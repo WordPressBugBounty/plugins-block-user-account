@@ -1,15 +1,15 @@
 ﻿=== Block User Account ===
 Contributors: dangoweb
 Donate link: https://dangoweb.ir
-Tags: block user, ban user, disable account, user management, account suspension, temporary block, user ban
+Tags: block user, ban user, disable account, user management, account suspension
 Requires at least: 6.5
 Tested up to: 7.0
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Easily block, manage, and monitor user accounts in WordPress with temporary or permanent restrictions, custom messages, email notifications, and activity logs.
+Block, manage, and monitor user accounts with temporary or permanent restrictions, custom messages, email notifications, and activity logs.
 
 == Description ==
 
@@ -59,27 +59,28 @@ Yes, the plugin maintains a detailed activity log with timestamps, admin users, 
 
 Yes, use the bulk actions dropdown in the users list to block or unblock multiple users simultaneously.
 
-= What happens when a block expires? =
-
-The user is automatically unblocked and can login again. You can also manually check expired blocks from the Tools tab.
-
 == Screenshots ==
 
-1. User profile block settings with toggle switch
-2. Users list with status columns and quick actions
-3. Bulk actions with duration options
-4. Plugin settings page with tabs
-5. Statistics and activity logs
-6. Dashboard widget overview
+1. Users list with status columns and quick actions
+2. User profile block settings with toggle switch
+3. Wordpress login Permanent blockage error
+4. Wordpress login Custom time blockage error
+5. Dashboard widget
+6. Settings page
+7. Settings page
+8. Settings page
 
 == Changelog ==
+
+=2.0.0=
+* Fixed REST API authentication bypass for blocked users (security fix)
 
 = 2.0.0 =
 * Complete plugin rewrite with OOP architecture
 * Added temporary block functionality with expiry dates
 * Added activity logging system with CSV export
 * Added email notifications for users and admins
-* Added bulk actions with duration options (1, 7, 30 days, permanent)
+* Added bulk actions with duration options
 * Added statistics page with charts and trends
 * Added admin bar menu with blocked user count
 * Added dashboard widget with expiring blocks overview
@@ -88,7 +89,6 @@ The user is automatically unblocked and can login again. You can also manually c
 * Added auto-unblock via cron jobs
 * Added tools section (check expired, clean logs, export)
 * Improved security with nonce verification
-* Improved UI with toggle switches and badges
 
 = 1.4 =
 * Added Persian translation
